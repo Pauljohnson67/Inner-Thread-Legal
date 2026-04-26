@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy — Inner Thread</title>
+<style>
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+    line-height: 1.65;
+    color: #1A2438;
+    background: #FBF3DF;
+  }
+  h1 {
+    font-size: 32px;
+    margin-bottom: 8px;
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-style: italic;
+    font-weight: 400;
+  }
+  h2 { font-size: 20px; margin-top: 36px; margin-bottom: 12px; }
+  p { margin: 12px 0; }
+  ul { padding-left: 24px; }
+  li { margin: 6px 0; }
+  .meta { color: #6A6555; font-size: 14px; margin-bottom: 32px; }
+  a { color: #7A5418; }
+  hr { border: none; border-top: 1px solid #D9C798; margin: 40px 0; }
+  footer { color: #6A6555; font-size: 13px; margin-top: 60px; text-align: center; }
+</style>
+</head>
+<body>
+<h1>Privacy Policy</h1>
+<p class="meta">Inner Thread &middot; Effective April 26, 2026</p>
+
+<p>Inner Thread (&ldquo;the App,&rdquo; &ldquo;we,&rdquo; &ldquo;us&rdquo;) is a private journaling app published by Piedmont Developers. This policy explains what data we collect, how we use it, and the choices you have.</p>
+
+<h2>1. Information we collect</h2>
+<ul>
+  <li><strong>Account information.</strong> When you sign up, we collect your email address and a hashed password through our authentication provider.</li>
+  <li><strong>Journal content.</strong> The text of your journal entries, your mood and energy ratings, and any voice recordings you submit for transcription.</li>
+  <li><strong>Derived data.</strong> Vector embeddings of your entry text (used for semantic search) and a structured "memory graph" extracted from your entries (people, topics, dates, and themes you have written about).</li>
+  <li><strong>Subscription information.</strong> Apple or Google handles your subscription purchase; we receive a receipt that confirms your subscription status. We do NOT receive your payment card information.</li>
+  <li><strong>Technical logs.</strong> Standard server logs (IP address, request timestamps) for security and debugging. These are retained for no more than 30 days.</li>
+</ul>
+
+<h2>2. How we use your information</h2>
+<ul>
+  <li>To operate the App: storing your entries, retrieving relevant past entries when you ask the AI a question, and powering the chat-with-your-past-self feature.</li>
+  <li>To transcribe voice recordings into text.</li>
+  <li>To process subscription purchases and manage account access.</li>
+  <li>To respond to support requests.</li>
+  <li>To detect and prevent abuse, fraud, or security incidents.</li>
+</ul>
+<p><strong>We do NOT sell your data. We do NOT use your journal content to train AI models. We do NOT share your content with third parties for advertising or marketing.</strong></p>
+
+<h2>3. Encryption and security</h2>
+<p>Your journal entry text is encrypted at rest using AES-256-GCM. Data sent between your device and our server is encrypted in transit using HTTPS/TLS. Access to backend systems is restricted to authorized personnel.</p>
+
+<h2>4. Third-party service providers</h2>
+<p>We use the following providers strictly to operate the App. Each receives only the minimum data necessary to perform its function:</p>
+<ul>
+  <li><strong>Supabase</strong> (authentication, database hosting): your email, hashed password, encrypted entry text, derived embeddings, and memory graph.</li>
+  <li><strong>Anthropic</strong> (Claude AI for chat replies): the user message, retrieved entry snippets, and memory graph summary, sent at the moment of a chat request. Anthropic's commercial-API data policy applies; content is not used for model training.</li>
+  <li><strong>OpenAI</strong> (text embeddings): journal text is sent solely to compute vector embeddings used for semantic search. OpenAI's API data policy applies; content is not used for model training.</li>
+  <li><strong>Deepgram</strong> (voice transcription): voice recordings you submit are transcribed and not retained by Deepgram beyond processing.</li>
+  <li><strong>Apple App Store / Google Play</strong> (subscriptions): receipt validation only.</li>
+</ul>
+
+<h2>5. Your rights and choices</h2>
+<ul>
+  <li><strong>Access and export:</strong> You can export all your data from Settings &rarr; Your Data &rarr; Export all my data.</li>
+  <li><strong>Deletion:</strong> You can permanently delete your account and all associated entries from Settings &rarr; Account &rarr; Delete account. Deletion is immediate and irreversible.</li>
+  <li><strong>Subscription cancellation:</strong> Manage your subscription through your Apple App Store or Google Play subscription settings.</li>
+  <li><strong>Communication preferences:</strong> We will only email you for transactional purposes (account verification, subscription receipts, security notices). We do not send marketing email.</li>
+</ul>
+
+<h2>6. Children</h2>
+<p>Inner Thread is not directed to children under 13. We do not knowingly collect data from children under 13. If you believe a child has provided us with information, contact us and we will delete it.</p>
+
+<h2>7. Data retention</h2>
+<p>We retain your account data and entries until you delete your account. Server logs are retained for up to 30 days. Backups are retained for up to 30 days after account deletion before being purged.</p>
+
+<h2>8. International users</h2>
+<p>Inner Thread is operated from the United States. By using the App, you consent to the transfer of your data to the United States. If you are in the European Economic Area, the United Kingdom, or California, you have additional rights including access, correction, deletion, restriction of processing, and portability. Contact us to exercise these rights.</p>
+
+<h2>9. Changes to this policy</h2>
+<p>We may update this policy from time to time. Material changes will be communicated by in-app notification or email at least 14 days before they take effect. The effective date at the top of this page reflects the latest revision.</p>
+
+<h2>10. Contact</h2>
+<p>Questions, requests, or concerns: <a href="mailto:support@innerthread.net">support@innerthread.net</a>.</p>
+
+<hr>
+<footer>Piedmont Developers &middot; Inner Thread &middot; innerthread.net</footer>
+</body>
+</html>

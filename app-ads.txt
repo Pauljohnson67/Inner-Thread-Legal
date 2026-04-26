@@ -1,0 +1,6 @@
+# Inner Thread — app-ads.txt
+# Verifies AdMob's authority to sell ads in this app.
+# Hosted at https://innerthread.net/app-ads.txt
+# Linked from App Store Connect → Marketing URL = https://innerthread.net (apex)
+
+google.com, pub-8708142879764244, DIRECT, f08c47fec0942fa0
