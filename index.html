@@ -1,128 +1,472 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>Inner Thread — A private memory journal</title>
-<meta name="description" content="A private memory journal that helps you think with your past. Speak or write your evening entries — and let your past self write back.">
-<meta property="og:title" content="Inner Thread">
-<meta property="og:description" content="A private memory journal that helps you think with your past.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://innerthread.net">
+<meta name="description" content="A private memory journal that helps you think with your past. Voice or text, encrypted at rest. No streaks, no followers, no noise." />
+<meta name="theme-color" content="#0E1622" />
+
+<meta property="og:title" content="Inner Thread" />
+<meta property="og:description" content="A private memory journal that helps you think with your past." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://innerthread.net" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+
 <style>
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    margin: 0;
-    background: #0E1622;
-    color: #F0E6CE;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+  :root {
+    --bg: #0E1622;
+    --bg-soft: #131D2C;
+    --text: #F0E6CE;
+    --gold: #E5BE74;
+    --gold-soft: rgba(229, 190, 116, 0.4);
+    --gold-faint: rgba(229, 190, 116, 0.12);
+    --muted: #A9A089;
+    --divider: #2A364A;
   }
-  main {
-    flex: 1;
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  .serif {
+    font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  a { color: var(--gold); text-decoration: none; }
+  a:hover { color: var(--text); }
+  img { max-width: 100%; display: block; }
+
+  /* ------- page shell ------- */
+  .page {
     max-width: 720px;
     margin: 0 auto;
-    padding: 80px 28px 60px;
-    text-align: center;
+    padding: 72px 28px 80px;
   }
+
+  /* ------- hero ------- */
+  .hero { text-align: center; padding-bottom: 56px; }
+
   .flame {
     width: 28px;
     height: 36px;
-    margin: 0 auto 28px;
-    background: radial-gradient(ellipse at center, #E5BE74 0%, #8B6A2A 60%, transparent 100%);
-    border-radius: 50% 50% 30% 30%;
-    filter: blur(0.5px);
+    margin: 0 auto 8px;
+    background: radial-gradient(
+      ellipse at 50% 80%,
+      var(--gold) 0%,
+      rgba(229, 190, 116, 0.45) 35%,
+      rgba(229, 190, 116, 0.08) 65%,
+      transparent 75%
+    );
+    filter: blur(0.3px);
   }
-  h1 {
-    font-family: "Cormorant Garamond", "Iowan Old Style", Georgia, serif;
+
+  h1.wordmark {
+    font-family: "Cormorant Garamond", Georgia, serif;
     font-style: italic;
     font-weight: 400;
-    font-size: 48px;
-    line-height: 1.1;
-    margin: 0 0 18px;
-    color: #F0E6CE;
+    font-size: 56px;
+    line-height: 1.05;
+    margin: 12px 0 14px;
+    letter-spacing: 0.5px;
   }
+
   .tagline {
-    font-style: italic;
-    font-size: 19px;
-    line-height: 1.5;
-    color: #A9A089;
-    max-width: 480px;
-    margin: 0 auto 48px;
+    color: var(--muted);
+    font-size: 17px;
+    line-height: 1.55;
+    max-width: 360px;
+    margin: 0 auto;
   }
-  .label {
-    color: #E5BE74;
+
+  .ornament {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin: 30px auto 0;
+  }
+  .ornament .line {
+    width: 44px;
+    height: 1px;
+    background: var(--gold-soft);
+  }
+  .ornament .star {
+    color: var(--gold);
     font-size: 11px;
-    letter-spacing: 0.22em;
+    opacity: 0.75;
+  }
+
+  /* ------- chapters ------- */
+  .chapter { padding: 56px 0; }
+
+  .num {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-style: italic;
+    color: var(--gold);
+    font-size: 14px;
+    letter-spacing: 4px;
     text-transform: uppercase;
-    margin-bottom: 8px;
+    margin-bottom: 18px;
   }
-  .body {
-    color: #A9A089;
+  .num::after {
+    content: "";
+    display: inline-block;
+    width: 28px;
+    height: 1px;
+    background: var(--gold-soft);
+    vertical-align: middle;
+    margin-left: 14px;
+  }
+
+  h2 {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 38px;
+    line-height: 1.15;
+    margin: 0 0 20px;
+    letter-spacing: 0.2px;
+  }
+
+  p.body {
+    font-size: 17px;
     line-height: 1.7;
-    margin-bottom: 36px;
+    margin: 0 0 16px;
+    color: var(--text);
+    max-width: 56ch;
   }
+
+  /* ------- features ------- */
   .features {
-    text-align: left;
-    max-width: 480px;
-    margin: 0 auto 48px;
-    color: #A9A089;
-    line-height: 1.8;
-    font-size: 15.5px;
-    list-style: none;
-    padding: 0;
+    display: grid;
+    gap: 0;
+    margin-top: 8px;
   }
-  .features li::before {
-    content: "✦  ";
-    color: #E5BE74;
-    margin-right: 4px;
+  .feat {
+    padding: 22px 0;
+    border-top: 1px solid var(--divider);
+    display: flex;
+    gap: 20px;
+    align-items: baseline;
   }
-  footer {
+  .feat:last-child { border-bottom: 1px solid var(--divider); }
+  .feat .star {
+    color: var(--gold);
+    font-size: 14px;
+    flex-shrink: 0;
+    line-height: 1.4;
+  }
+  .feat strong {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 22px;
+    display: block;
+    margin-bottom: 4px;
+    color: var(--text);
+    line-height: 1.25;
+  }
+  .feat span {
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.55;
+  }
+
+  /* ------- screenshots ------- */
+  .shots {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 36px 22px;
+    margin-top: 16px;
+  }
+  .shot { margin: 0; }
+  .shot:nth-child(2),
+  .shot:nth-child(4) { transform: translateY(36px); }
+
+  .shot img {
+    width: 100%;
+    aspect-ratio: 9 / 19.5;
+    object-fit: cover;
+    border-radius: 26px;
+    border: 1px solid var(--divider);
+    box-shadow:
+      0 30px 60px -30px rgba(0, 0, 0, 0.6),
+      0 1px 0 0 rgba(255, 255, 255, 0.02) inset;
+  }
+  .shot figcaption {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-style: italic;
     text-align: center;
-    padding: 32px 28px 48px;
-    border-top: 1px solid #2A364A;
-    color: #6A6555;
-    font-size: 13px;
+    color: var(--muted);
+    font-size: 14.5px;
+    line-height: 1.4;
+    margin-top: 14px;
+    padding: 0 6px;
   }
-  footer a {
-    color: #E5BE74;
-    text-decoration: none;
-    margin: 0 12px;
+
+  /* ------- CTA card ------- */
+  .cta-card {
+    margin: 64px 0 0;
+    padding: 52px 32px;
+    border: 1px solid var(--gold-soft);
+    border-radius: 4px;
+    text-align: center;
+    position: relative;
+    background: linear-gradient(180deg, var(--gold-faint), transparent 70%);
   }
-  footer a:hover { text-decoration: underline; }
-  .small {
+  .corner {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border: 1px solid var(--gold);
+  }
+  .c1 { top: -1px; left: -1px; border-right: 0; border-bottom: 0; }
+  .c2 { top: -1px; right: -1px; border-left: 0; border-bottom: 0; }
+  .c3 { bottom: -1px; left: -1px; border-right: 0; border-top: 0; }
+  .c4 { bottom: -1px; right: -1px; border-left: 0; border-top: 0; }
+
+  .cta-eyebrow {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-style: italic;
+    color: var(--gold);
     font-size: 12px;
-    color: #6A6555;
-    margin-top: 10px;
+    letter-spacing: 3.5px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .cta-card h3 {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 1.2;
+    margin: 0 0 12px;
+  }
+  .cta-card p {
+    color: var(--muted);
+    margin: 0 auto 26px;
+    font-size: 15.5px;
+    line-height: 1.6;
+    max-width: 36ch;
+  }
+
+  .pair {
+    display: flex;
+    gap: 1px;
+    justify-content: center;
+    background: var(--divider);
+    border: 1px solid var(--divider);
+    border-radius: 4px;
+    overflow: hidden;
+    max-width: 360px;
+    margin: 0 auto;
+  }
+  .pair .item {
+    background: var(--bg);
+    padding: 16px 24px;
+    flex: 1;
+  }
+  .pair .item .pf {
+    font-size: 14px;
+    color: var(--text);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+  .pair .item .st {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  /* ------- footer ------- */
+  footer.site {
+    margin-top: 72px;
+    padding-top: 36px;
+    border-top: 1px solid var(--divider);
+    text-align: center;
+    color: var(--muted);
+    font-size: 13.5px;
+  }
+  footer.site .links {
+    display: flex;
+    justify-content: center;
+    gap: 26px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+  footer.site a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 13.5px;
+  }
+  footer.site a:hover { color: var(--gold); }
+  footer.site .copy { font-size: 13px; opacity: 0.85; }
+
+  /* ------- responsive ------- */
+  @media (max-width: 520px) {
+    .page { padding: 56px 22px 64px; }
+    h1.wordmark { font-size: 48px; }
+    h2 { font-size: 32px; }
+    .chapter { padding: 44px 0; }
+    .shots { gap: 28px 16px; }
+    .shot:nth-child(2),
+    .shot:nth-child(4) { transform: translateY(28px); }
+    .cta-card { padding: 40px 22px; }
+    .cta-card h3 { font-size: 28px; }
+    .feat { gap: 16px; padding: 18px 0; }
+    .feat strong { font-size: 20px; }
+    footer.site .links { gap: 18px; }
+  }
+
+  @media (min-width: 720px) {
+    .shots { gap: 44px 28px; }
+  }
+
+  /* honor reduced motion (no animations here, but for any future links) */
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
   }
 </style>
 </head>
 <body>
-<main>
-  <div class="flame" aria-hidden="true"></div>
-  <h1>Inner Thread</h1>
-  <p class="tagline">A private memory journal that helps you think with your past.</p>
 
-  <p class="label">A nightly ritual</p>
-  <p class="body">Each evening, write or speak the day's entry. Inner Thread reads only your own writing — and uses what you've written before to gently respond, in your own voice. It's like a letter from yesterday's version of you.</p>
+<main class="page">
 
-  <ul class="features">
-    <li>Voice or text entries, encrypted at rest</li>
-    <li>Browse past entries like flipping through a notebook</li>
-    <li>Ask anything — Inner Thread retrieves the entries that matter</li>
-    <li>No streaks. No followers. No ads on premium. Just a page and the time to set things down before sleep.</li>
-  </ul>
+  <!-- ===== HERO ===== -->
+  <header class="hero">
+    <div class="flame" aria-hidden="true"></div>
+    <h1 class="wordmark">Inner Thread</h1>
+    <p class="tagline">A private memory journal that helps you think with your past.</p>
+    <div class="ornament" aria-hidden="true">
+      <span class="line"></span>
+      <span class="star">✦</span>
+      <span class="line"></span>
+    </div>
+  </header>
 
-  <p class="small">Coming soon to the App Store.</p>
+  <!-- ===== I. THE RITUAL ===== -->
+  <section class="chapter">
+    <div class="num">I &nbsp;·&nbsp; The ritual</div>
+    <h2>End the day on the page.</h2>
+    <p class="body">Each evening, write or speak the day&rsquo;s entry. Inner Thread reads only what you&rsquo;ve written before, and offers a single, considered reply.</p>
+    <p class="body">&mdash; a letter from yesterday&rsquo;s version of you.</p>
+  </section>
+
+  <!-- ===== II. THE PREMISE ===== -->
+  <section class="chapter">
+    <div class="num">II &nbsp;·&nbsp; The premise</div>
+    <div class="features">
+      <div class="feat">
+        <span class="star" aria-hidden="true">✦</span>
+        <div>
+          <strong>Voice or text, encrypted at rest</strong>
+          <span>Speak or type. Your words never leave your device unencrypted.</span>
+        </div>
+      </div>
+      <div class="feat">
+        <span class="star" aria-hidden="true">✦</span>
+        <div>
+          <strong>Browse what you&rsquo;ve written</strong>
+          <span>An honest archive of your own thinking, gently kept.</span>
+        </div>
+      </div>
+      <div class="feat">
+        <span class="star" aria-hidden="true">✦</span>
+        <div>
+          <strong>Ask, and find what matters</strong>
+          <span>Search the shape of your own mind, in plain language.</span>
+        </div>
+      </div>
+      <div class="feat">
+        <span class="star" aria-hidden="true">✦</span>
+        <div>
+          <strong>No streaks. No followers. No noise.</strong>
+          <span>Nothing to perform. Nothing to optimize.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== III. FOUR GLIMPSES ===== -->
+  <section class="chapter">
+    <div class="num">III &nbsp;·&nbsp; Four glimpses</div>
+    <div class="shots">
+      <figure class="shot">
+        <img src="/screenshots/01-journal.png" alt="The journal screen, where the day's entry is written" />
+        <figcaption>Write the day&rsquo;s entry</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="/screenshots/02-entries.png" alt="A list of past journal entries by date" />
+        <figcaption>Browse past entries</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="/screenshots/03-ask.png" alt="Asking a question of your own writing" />
+        <figcaption>Ask, and find what matters</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="/screenshots/04-letters.png" alt="A letter written from yesterday's perspective" />
+        <figcaption>A letter from yesterday&rsquo;s you</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section class="cta-card" aria-labelledby="cta-title">
+    <span class="corner c1" aria-hidden="true"></span>
+    <span class="corner c2" aria-hidden="true"></span>
+    <span class="corner c3" aria-hidden="true"></span>
+    <span class="corner c4" aria-hidden="true"></span>
+
+    <div class="cta-eyebrow">Arriving soon</div>
+    <h3 id="cta-title">Begin the practice.</h3>
+    <p>Coming to iPhone and Android.</p>
+
+    <div class="pair" role="list">
+      <div class="item" role="listitem">
+        <div class="pf">iPhone</div>
+        <div class="st">In App Store review</div>
+      </div>
+      <div class="item" role="listitem">
+        <div class="pf">Android</div>
+        <div class="st">In Play closed test</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site">
+    <nav class="links" aria-label="Site links">
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+      <a href="/support">Support</a>
+      <a href="mailto:support@innerthread.net">Contact</a>
+    </nav>
+    <div class="copy">© 2026 Piedmont Developers</div>
+  </footer>
+
 </main>
 
-<footer>
-  <a href="/privacy">Privacy Policy</a>
-  <a href="/terms">Terms of Service</a>
-  <a href="/support">Support</a>
-  <a href="mailto:support@innerthread.net">Contact</a>
-  <div class="small" style="margin-top: 18px;">© 2026 Piedmont Developers</div>
-</footer>
 </body>
 </html>
