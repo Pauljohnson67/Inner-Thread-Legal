@@ -33,64 +33,37 @@
 </head>
 <body>
 <h1>Privacy Policy</h1>
-<p class="meta">Inner Thread &middot; Effective April 26, 2026</p>
+<p class="meta">Inner Thread &middot; Last updated: May 11, 2026</p>
 
-<p>Inner Thread (&ldquo;the App,&rdquo; &ldquo;we,&rdquo; &ldquo;us&rdquo;) is a private journaling app published by Piedmont Developers. This policy explains what data we collect, how we use it, and the choices you have.</p>
+<p>Inner Thread is designed to keep your writing on your device. This policy explains exactly what data the app handles and what leaves your phone.</p>
 
-<h2>1. Information we collect</h2>
+<h2>What stays on your device</h2>
+<p>Your journal entries, photos attached to entries, your mood and energy selections, and the search index over your entries are stored only in the app's local sandbox on your iPhone or iPad. They are not uploaded to our servers. Apple's standard iCloud Backup, if you have it enabled, may include this sandbox along with your other app data &mdash; that backup goes to your iCloud account, not to us.</p>
+
+<h2>What is sent off-device, only when you use a feature that requires it</h2>
 <ul>
-  <li><strong>Account information.</strong> When you sign up, we collect your email address and a hashed password through our authentication provider.</li>
-  <li><strong>Journal content.</strong> The text of your journal entries, your mood and energy ratings, and any voice recordings you submit for transcription.</li>
-  <li><strong>Derived data.</strong> Vector embeddings of your entry text (used for semantic search) and a structured "memory graph" extracted from your entries (people, topics, dates, and themes you have written about).</li>
-  <li><strong>Subscription information.</strong> Apple or Google handles your subscription purchase; we receive a receipt that confirms your subscription status. We do NOT receive your payment card information.</li>
-  <li><strong>Technical logs.</strong> Standard server logs (IP address, request timestamps) for security and debugging. These are retained for no more than 30 days.</li>
+  <li><strong>Voice transcription (Deepgram).</strong> When you record a voice note in the Journal or Ask tabs, the audio is sent to our backend, which forwards it to Deepgram (<a href="https://deepgram.com">https://deepgram.com</a>) to convert speech to text. The audio and transcript are not retained beyond the request.</li>
+  <li><strong>Letters chat (Anthropic Claude).</strong> When you write a message in the Letters tab, your message and the entries the device judged most relevant to it (selected by your phone's local search) are sent to our backend, which forwards them to Anthropic (<a href="https://anthropic.com">https://anthropic.com</a>) to generate the reply. The reply is streamed back to your phone.</li>
+  <li><strong>Listen playback (Google Cloud Text-to-Speech).</strong> When you tap Play on a journal entry in the Listen tab, the text of that entry is sent to our backend, which forwards it to Google Cloud Text-to-Speech (<a href="https://cloud.google.com/text-to-speech">https://cloud.google.com/text-to-speech</a>) to render a natural-sounding audio clip using a WaveNet voice. The generated audio is cached on your device after the first play so repeated plays do not re-send the text. Audio and text are not retained beyond the request.</li>
 </ul>
 
-<h2>2. How we use your information</h2>
-<ul>
-  <li>To operate the App: storing your entries, retrieving relevant past entries when you ask the AI a question, and powering the chat-with-your-past-self feature.</li>
-  <li>To transcribe voice recordings into text.</li>
-  <li>To process subscription purchases and manage account access.</li>
-  <li>To respond to support requests.</li>
-  <li>To detect and prevent abuse, fraud, or security incidents.</li>
-</ul>
-<p><strong>We do NOT sell your data. We do NOT use your journal content to train AI models. We do NOT share your content with third parties for advertising or marketing.</strong></p>
+<p>None of these providers &mdash; Deepgram, Anthropic, or Google Cloud &mdash; use your writing to train AI models, per their published API terms.</p>
 
-<h2>3. Encryption and security</h2>
-<p>Your journal entry text is encrypted at rest using AES-256-GCM. Data sent between your device and our server is encrypted in transit using HTTPS/TLS. Access to backend systems is restricted to authorized personnel.</p>
+<h2>Account information</h2>
+<p>We use Supabase for sign-in and session management. Your email address and authentication tokens are stored on Supabase's infrastructure. We do NOT store your journal entries, photos, mood data, or transcripts on our servers or in Supabase.</p>
 
-<h2>4. Third-party service providers</h2>
-<p>We use the following providers strictly to operate the App. Each receives only the minimum data necessary to perform its function:</p>
+<h2>Subscriptions</h2>
+<p>Inner Thread Premium is sold via Apple's In-App Purchase system. We do not see your payment information; Apple handles billing and shares only the subscription status with us.</p>
+
+<h2>Your choices</h2>
 <ul>
-  <li><strong>Supabase</strong> (authentication, database hosting): your email, hashed password, encrypted entry text, derived embeddings, and memory graph.</li>
-  <li><strong>Anthropic</strong> (Claude AI for chat replies): the user message, retrieved entry snippets, and memory graph summary, sent at the moment of a chat request. Anthropic's commercial-API data policy applies; content is not used for model training.</li>
-  <li><strong>OpenAI</strong> (text embeddings): journal text is sent solely to compute vector embeddings used for semantic search. OpenAI's API data policy applies; content is not used for model training.</li>
-  <li><strong>Deepgram</strong> (voice transcription): voice recordings you submit are transcribed and not retained by Deepgram beyond processing.</li>
-  <li><strong>Apple App Store / Google Play</strong> (subscriptions): receipt validation only.</li>
+  <li><strong>Delete account:</strong> Settings &rarr; Delete account permanently erases your local entries and photos, signs you out, and removes your account record.</li>
+  <li><strong>Export:</strong> Settings &rarr; Export prepares a copy of your local data.</li>
+  <li><strong>Stop using AI features:</strong> skip the Letters tab to avoid sending data to Anthropic; type instead of using voice to avoid sending audio to Deepgram; skip the Listen tab to avoid sending entry text to Google Cloud.</li>
 </ul>
 
-<h2>5. Your rights and choices</h2>
-<ul>
-  <li><strong>Access and export:</strong> You can export all your data from Settings &rarr; Your Data &rarr; Export all my data.</li>
-  <li><strong>Deletion:</strong> You can permanently delete your account and all associated entries from Settings &rarr; Account &rarr; Delete account. Deletion is immediate and irreversible.</li>
-  <li><strong>Subscription cancellation:</strong> Manage your subscription through your Apple App Store or Google Play subscription settings.</li>
-  <li><strong>Communication preferences:</strong> We will only email you for transactional purposes (account verification, subscription receipts, security notices). We do not send marketing email.</li>
-</ul>
-
-<h2>6. Children</h2>
-<p>Inner Thread is not directed to children under 13. We do not knowingly collect data from children under 13. If you believe a child has provided us with information, contact us and we will delete it.</p>
-
-<h2>7. Data retention</h2>
-<p>We retain your account data and entries until you delete your account. Server logs are retained for up to 30 days. Backups are retained for up to 30 days after account deletion before being purged.</p>
-
-<h2>8. International users</h2>
-<p>Inner Thread is operated from the United States. By using the App, you consent to the transfer of your data to the United States. If you are in the European Economic Area, the United Kingdom, or California, you have additional rights including access, correction, deletion, restriction of processing, and portability. Contact us to exercise these rights.</p>
-
-<h2>9. Changes to this policy</h2>
-<p>We may update this policy from time to time. Material changes will be communicated by in-app notification or email at least 14 days before they take effect. The effective date at the top of this page reflects the latest revision.</p>
-
-<h2>10. Contact</h2>
-<p>Questions, requests, or concerns: <a href="mailto:support@innerthread.net">support@innerthread.net</a>.</p>
+<h2>Contact</h2>
+<p>Email <a href="mailto:support@innerthread.net">support@innerthread.net</a> for any privacy questions.</p>
 
 <hr>
 <footer>Piedmont Developers &middot; Inner Thread &middot; innerthread.net</footer>
